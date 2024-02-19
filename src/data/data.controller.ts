@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Post, Res, HttpStatus } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 import { DataService } from './data.service';
 import { Response } from 'express';
 
@@ -7,6 +8,9 @@ export class DataController {
   constructor(private readonly dataService: DataService) {}
 
   @Get()
+  @ApiOperation({ summary: 'Get data' })
+  @ApiResponse({ status: 200, description: 'Return data' })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
   async getData(@Res() res: Response) {
     try {
       const data = await this.dataService.readData();
@@ -17,6 +21,19 @@ export class DataController {
   }
 
   @Post()
+  @ApiOperation({ summary: 'Add new data' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        name: { type: 'string' },
+        type: { type: 'string' },
+        description: { type: 'string' },
+      },
+    },
+  })
+  @ApiResponse({ status: 201, description: 'Data successfully added' })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
   async addData(@Body() newData: any, @Res() res: Response) {
     try {
       const now = new Date();

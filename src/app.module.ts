@@ -2,7 +2,7 @@ import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { DataModule } from './data/data.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import * as cors from 'cors'; // Убедитесь, что вы установили пакет cors через npm или yarn
+import * as cors from 'cors';
 
 @Module({
   imports: [DataModule],
@@ -11,6 +11,6 @@ import * as cors from 'cors'; // Убедитесь, что вы установ�
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(cors()).forRoutes('*'); // Применение CORS ко всем маршрутам
+    consumer.apply(cors()).forRoutes('*');
   }
 }

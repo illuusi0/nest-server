@@ -4,6 +4,6 @@ import { DataController } from './data.controller';
 
 @Module({
   providers: [DataService],
-  controllers: [DataController]
+  controllers: [DataController],
 })
 export class DataModule {}
